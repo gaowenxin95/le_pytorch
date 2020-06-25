@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>pytorch学习笔记</title>
+  <meta name="description" content="pytorch学习笔记" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="pytorch学习笔记" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="pytorch学习笔记" />
+  
+  
+  
+
+<meta name="author" content="高文欣" />
+
+
+<meta name="date" content="2020-06-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path=""><a href="#pytorch学习笔记"><i class="fa fa-check"></i><b>1</b> pytorch学习笔记</a><ul>
+<li class="chapter" data-level="1.1" data-path=""><a href="#数据的加载和预处理"><i class="fa fa-check"></i><b>1.1</b> 数据的加载和预处理</a><ul>
+<li class="chapter" data-level="1.1.1" data-path=""><a href="#dataset类"><i class="fa fa-check"></i><b>1.1.1</b> Dataset类</a></li>
+<li class="chapter" data-level="1.1.2" data-path=""><a href="#dataloader"><i class="fa fa-check"></i><b>1.1.2</b> Dataloader</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path=""><a href="#torchvision"><i class="fa fa-check"></i><b>1.2</b> torchvision</a><ul>
+<li class="chapter" data-level="1.2.1" data-path=""><a href="#torchvision.models"><i class="fa fa-check"></i><b>1.2.1</b> torchvision.models</a></li>
+<li class="chapter" data-level="1.2.2" data-path=""><a href="#section"><i class="fa fa-check"></i><b>1.2.2</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path=""><a href="#定义一个卷积神经网络"><i class="fa fa-check"></i><b>1.3</b> 定义一个卷积神经网络</a></li>
+<li class="chapter" data-level="1.4" data-path=""><a href="#定义损失函数和优化器"><i class="fa fa-check"></i><b>1.4</b> 定义损失函数和优化器</a></li>
+<li class="chapter" data-level="1.5" data-path=""><a href="#训练网路"><i class="fa fa-check"></i><b>1.5</b> 4. 训练网路</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">pytorch学习笔记</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">pytorch学习笔记</h1>
+<p class="author"><em>高文欣</em></p>
+<p class="date"><em>2020-06-25</em></p>
+</div>
+<div id="pytorch学习笔记" class="section level1">
+<h1><span class="header-section-number">1</span> pytorch学习笔记</h1>
+<div id="数据的加载和预处理" class="section level2">
+<h2><span class="header-section-number">1.1</span> 数据的加载和预处理</h2>
+<blockquote>
+<p>PyTorch通过torch.utils.data对一般常用的数据加载进行了封装，可以很容易地实现多线程数据预读和批量加载。</p>
+</blockquote>
+<p>猜测是工程上的实现，应该是更快的吧~</p>
+<div id="dataset类" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Dataset类</h3>
+<p><strong>自定义数据集</strong></p>
+<p>Dataset是一个抽象类，为了能够方便的读取，需要将要使用的数据包装为Dataset类。自定义的Dataset需要继承它并且实现两个成员方法：</p>
+<p>/<strong>getitem</strong>() 该方法定义用索引(0 到 len(self))获取一条数据或一个样本
+/<strong>len</strong>() 该方法返回数据集的总长度</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>from torch.utils.data import Dataset</span>
+<span id="cb1-2"><a href="#cb1-2"></a>import pandas as pd</span>
+<span id="cb1-3"><a href="#cb1-3"></a>class <span class="kw">BulldozerDataset</span>(Dataset)<span class="op">:</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="st">    &quot;&quot;&quot; 数据集演示 &quot;&quot;&quot;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>    def <span class="kw">__init__</span>(self, csv_file)<span class="op">:</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="st">        &quot;&quot;&quot;实现初始化方法，在初始化的时候将数据读载入&quot;&quot;&quot;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>        self.df=<span class="kw">pd.read_csv</span>(csv_file)</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    def <span class="kw">__len__</span>(self)<span class="op">:</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="st">        &#39;&#39;&#39;</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="st">        返回df的长度</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="st">        &#39;&#39;&#39;</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>        return <span class="kw">len</span>(self.df)</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    def <span class="kw">__getitem__</span>(self, idx)<span class="op">:</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="st">        &#39;&#39;&#39;</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="st">        根据 idx 返回一行数据</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="st">        &#39;&#39;&#39;</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>        return self.df.iloc[idx].SalePrice</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>ds_demo=<span class="st"> </span><span class="kw">BulldozerDataset</span>(<span class="st">&#39;median_benchmark.csv&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#实现了 __len__ 方法所以可以直接使用len获取数据总数</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">len</span>(ds_demo)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#用索引可以直接访问对应的数据，对应 __getitem__ 方法</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>ds_demo[<span class="dv">0</span>]</span></code></pre></div>
+<blockquote>
+<p>并且torchvision已经预先实现了常用图像数据集，包括前面使用过的CIFAR-10，ImageNet、COCO、MNIST、LSUN等数据集，可通过torchvision.datasets方便的调用。</p>
+</blockquote>
+</div>
+<div id="dataloader" class="section level3">
+<h3><span class="header-section-number">1.1.2</span> Dataloader</h3>
+<p>DataLoader为我们提供了对Dataset的读取操作，常用参数有：batch_size(每个batch的大小)、 shuffle(是否进行shuffle操作)、 num_workers(加载数据的时候使用几个子进程)。下面做一个简单的操作</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>dl =<span class="st"> </span><span class="kw">torch.utils.data.DataLoader</span>(ds_demo, <span class="dt">batch_size=</span><span class="dv">10</span>, <span class="dt">shuffle=</span>True, <span class="dt">num_workers=</span><span class="dv">0</span>)</span></code></pre></div>
+<p>DataLoader返回的是一个可迭代对象，我们可以使用迭代器分次获取数据</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>idata=<span class="kw">iter</span>(dl)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">print</span>(<span class="cf">next</span>(idata))</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">tensor</span>([<span class="fl">24000.</span>, <span class="fl">24000.</span>, <span class="fl">24000.</span>, <span class="fl">24000.</span>, <span class="fl">24000.</span>, <span class="fl">24000.</span>, <span class="fl">24000.</span>, <span class="fl">24000.</span>, <span class="fl">24000.</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>        <span class="fl">24000.</span>], <span class="dt">dtype=</span>torch.float64)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>        </span></code></pre></div>
+<p>常见的用法是使用for循环对其进行遍历</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="cf">for</span> i, data <span class="cf">in</span> <span class="kw">enumerate</span>(dl)<span class="op">:</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="st">    </span><span class="kw">print</span>(i,data)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="co"># 为了节约空间，这里只循环一遍</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>    <span class="cf">break</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>    </span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co"># 0 tensor([24000., 24000., 24000., 24000., 24000., 24000., 24000., 24000., 24000.,</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>        <span class="fl">24000.</span>], dtype=torch.float64<span class="er">)</span></span></code></pre></div>
+<p>使用Datalorder载入和遍历数据集</p>
+</div>
+</div>
+<div id="torchvision" class="section level2">
+<h2><span class="header-section-number">1.2</span> torchvision</h2>
+<p>这个包是专门用来处理图像的</p>
+<p>torchvision.datasets 可以理解为PyTorch团队自定义的dataset，这些dataset帮我们提前处理好了很多的图片数据集，我们拿来就可以直接使用：</p>
+<p>MNIST
+COCO
+Captions
+Detection
+LSUN
+ImageFolder
+Imagenet-12
+CIFAR
+STL10
+SVHN
+PhotoTour 我们可以直接使用，示例如下：</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2"></a>import torchvision.datasets as datasets</span>
+<span id="cb8-3"><a href="#cb8-3"></a>trainset =<span class="st"> </span><span class="kw">datasets.MNIST</span>(<span class="dt">root=</span><span class="st">&#39;./data&#39;</span>, <span class="co"># 表示 MNIST 数据的加载的目录</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>                                      <span class="dt">train=</span>True,  <span class="co"># 表示是否加载数据库的训练集，false的时候加载测试集</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>                                      <span class="dt">download=</span>True, <span class="co"># 表示是否自动下载 MNIST 数据集</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>                                      <span class="dt">transform=</span>None) <span class="co"># 表示是否需要对数据进行预处理，none为不进行预处理</span></span></code></pre></div>
+<div id="torchvision.models" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> torchvision.models</h3>
+<p>torchvision不仅提供了常用图片数据集，还提供了训练好的模型，可以加载之后，直接使用，或者在进行迁移学习 torchvision.models模块的 子模块中包含以下模型结构。</p>
+<ul>
+<li>AlexNet</li>
+<li>VGG</li>
+<li>ResNet</li>
+<li>SqueezeNet</li>
+<li>DenseNet</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">#我们直接可以使用训练好的模型，当然这个与datasets相同，都是需要从服务器下载的</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>import torchvision.models as models</span>
+<span id="cb9-3"><a href="#cb9-3"></a>resnet18 =<span class="st"> </span><span class="kw">models.resnet18</span>(<span class="dt">pretrained=</span>True)</span></code></pre></div>
+</div>
+<div id="section" class="section level3">
+<h3><span class="header-section-number">1.2.2</span> </h3>
+<p>torchvision.transforms
+transforms 模块提供了一般的图像转换操作类，用作数据处理和数据增强</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>from torchvision import transforms as transforms</span>
+<span id="cb10-2"><a href="#cb10-2"></a>transform =<span class="st"> </span><span class="kw">transforms.Compose</span>([</span>
+<span id="cb10-3"><a href="#cb10-3"></a>    <span class="kw">transforms.RandomCrop</span>(<span class="dv">32</span>, <span class="dt">padding=</span><span class="dv">4</span>),  <span class="co">#先四周填充0，在把图像随机裁剪成32*32</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>    <span class="kw">transforms.RandomHorizontalFlip</span>(),  <span class="co">#图像一半的概率翻转，一半的概率不翻转</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>    <span class="kw">transforms.RandomRotation</span>((<span class="op">-</span><span class="dv">45</span>,<span class="dv">45</span>)), <span class="co">#随机旋转</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>    <span class="kw">transforms.ToTensor</span>(),</span>
+<span id="cb10-7"><a href="#cb10-7"></a>    <span class="kw">transforms.Normalize</span>((<span class="fl">0.4914</span>, <span class="fl">0.4822</span>, <span class="fl">0.4465</span>), (<span class="fl">0.229</span>, <span class="fl">0.224</span>, <span class="fl">0.225</span>)), <span class="co">#R,G,B每层的归一化用到的均值和方差</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>])</span></code></pre></div>
+<p>张量的各种操作就是类似于numpy的各种操作</p>
+<p>具体的张量的操作可以参考<a href="https://github.com/zergtant/pytorch-handbook/blob/master/chapter1/1_tensor_tutorial.ipynb">github张量</a></p>
+<p><strong>torch.view 与Numpy的reshape类似</strong></p>
+</div>
+</div>
+<div id="定义一个卷积神经网络" class="section level2">
+<h2><span class="header-section-number">1.3</span> 定义一个卷积神经网络</h2>
+<p>从之前的神经网络一节复制神经网络代码，并修改为输入3通道图像。</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>import torch.nn as nn</span>
+<span id="cb11-2"><a href="#cb11-2"></a>import torch.nn.functional as F</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a></span>
+<span id="cb11-5"><a href="#cb11-5"></a>class <span class="kw">Net</span>(nn.Module)<span class="op">:</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="st">    </span>def <span class="kw">__init__</span>(self)<span class="op">:</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="st">        </span><span class="kw">super</span>(Net, self)<span class="kw">.__init__</span>()</span>
+<span id="cb11-8"><a href="#cb11-8"></a>        self.conv1 =<span class="st"> </span><span class="kw">nn.Conv2d</span>(<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>)</span>
+<span id="cb11-9"><a href="#cb11-9"></a>        self.pool =<span class="st"> </span><span class="kw">nn.MaxPool2d</span>(<span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb11-10"><a href="#cb11-10"></a>        self.conv2 =<span class="st"> </span><span class="kw">nn.Conv2d</span>(<span class="dv">6</span>, <span class="dv">16</span>, <span class="dv">5</span>)</span>
+<span id="cb11-11"><a href="#cb11-11"></a>        self.fc1 =<span class="st"> </span><span class="kw">nn.Linear</span>(<span class="dv">16</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span>, <span class="dv">120</span>)</span>
+<span id="cb11-12"><a href="#cb11-12"></a>        self.fc2 =<span class="st"> </span><span class="kw">nn.Linear</span>(<span class="dv">120</span>, <span class="dv">84</span>)</span>
+<span id="cb11-13"><a href="#cb11-13"></a>        self.fc3 =<span class="st"> </span><span class="kw">nn.Linear</span>(<span class="dv">84</span>, <span class="dv">10</span>)</span>
+<span id="cb11-14"><a href="#cb11-14"></a></span>
+<span id="cb11-15"><a href="#cb11-15"></a>    def <span class="kw">forward</span>(self, x)<span class="op">:</span></span>
+<span id="cb11-16"><a href="#cb11-16"></a><span class="st">        </span>x =<span class="st"> </span><span class="kw">self.pool</span>(<span class="kw">F.relu</span>(<span class="kw">self.conv1</span>(x)))</span>
+<span id="cb11-17"><a href="#cb11-17"></a>        x =<span class="st"> </span><span class="kw">self.pool</span>(<span class="kw">F.relu</span>(<span class="kw">self.conv2</span>(x)))</span>
+<span id="cb11-18"><a href="#cb11-18"></a>        x =<span class="st"> </span><span class="kw">x.view</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">16</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span>)</span>
+<span id="cb11-19"><a href="#cb11-19"></a>        x =<span class="st"> </span><span class="kw">F.relu</span>(<span class="kw">self.fc1</span>(x))</span>
+<span id="cb11-20"><a href="#cb11-20"></a>        x =<span class="st"> </span><span class="kw">F.relu</span>(<span class="kw">self.fc2</span>(x))</span>
+<span id="cb11-21"><a href="#cb11-21"></a>        x =<span class="st"> </span><span class="kw">self.fc3</span>(x)</span>
+<span id="cb11-22"><a href="#cb11-22"></a>        return x</span>
+<span id="cb11-23"><a href="#cb11-23"></a></span>
+<span id="cb11-24"><a href="#cb11-24"></a></span>
+<span id="cb11-25"><a href="#cb11-25"></a>net =<span class="st"> </span><span class="kw">Net</span>()</span></code></pre></div>
+</div>
+<div id="定义损失函数和优化器" class="section level2">
+<h2><span class="header-section-number">1.4</span> 定义损失函数和优化器</h2>
+<p>我们使用交叉熵作为损失函数，使用带动量的随机梯度下降。</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>import torch.optim as optim</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a>criterion =<span class="st"> </span><span class="kw">nn.CrossEntropyLoss</span>()</span>
+<span id="cb12-4"><a href="#cb12-4"></a>optimizer =<span class="st"> </span><span class="kw">optim.SGD</span>(<span class="kw">net.parameters</span>(), <span class="dt">lr=</span><span class="fl">0.001</span>, <span class="dt">momentum=</span><span class="fl">0.9</span>)</span></code></pre></div>
+</div>
+<div id="训练网路" class="section level2">
+<h2><span class="header-section-number">1.5</span> 4. 训练网路</h2>
+<p>有趣的时刻开始了。 我们只需在数据迭代器上循环，将数据输入给网络，并优化。</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="cf">for</span> epoch <span class="cf">in</span> <span class="kw">range</span>(<span class="dv">2</span>)<span class="op">:</span><span class="st">  </span><span class="co"># 多批次循环</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="st">    </span>running_loss =<span class="st"> </span><span class="fl">0.0</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>    <span class="cf">for</span> i, data <span class="cf">in</span> <span class="kw">enumerate</span>(trainloader, <span class="dv">0</span>)<span class="op">:</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="st">        </span><span class="co"># 获取输入</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="st">        </span>inputs, labels =<span class="st"> </span>data</span>
+<span id="cb13-7"><a href="#cb13-7"></a></span>
+<span id="cb13-8"><a href="#cb13-8"></a>        <span class="co"># 梯度置0</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>        <span class="kw">optimizer.zero_grad</span>()</span>
+<span id="cb13-10"><a href="#cb13-10"></a></span>
+<span id="cb13-11"><a href="#cb13-11"></a>        <span class="co"># 正向传播，反向传播，优化</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a>        outputs =<span class="st"> </span><span class="kw">net</span>(inputs)</span>
+<span id="cb13-13"><a href="#cb13-13"></a>        loss =<span class="st"> </span><span class="kw">criterion</span>(outputs, labels)</span>
+<span id="cb13-14"><a href="#cb13-14"></a>        <span class="kw">loss.backward</span>()</span>
+<span id="cb13-15"><a href="#cb13-15"></a>        <span class="kw">optimizer.step</span>()</span>
+<span id="cb13-16"><a href="#cb13-16"></a></span>
+<span id="cb13-17"><a href="#cb13-17"></a>        <span class="co"># 打印状态信息</span></span>
+<span id="cb13-18"><a href="#cb13-18"></a>        running_loss <span class="op">+</span><span class="er">=</span><span class="st"> </span><span class="kw">loss.item</span>()</span>
+<span id="cb13-19"><a href="#cb13-19"></a>        <span class="cf">if</span> i % <span class="dv">2000</span> <span class="op">==</span><span class="st"> </span><span class="dv">1999</span><span class="op">:</span><span class="st">    </span><span class="co"># 每2000批次打印一次</span></span>
+<span id="cb13-20"><a href="#cb13-20"></a><span class="st">            </span><span class="kw">print</span>(<span class="st">&#39;[%d, %5d] loss: %.3f&#39;</span> %</span>
+<span id="cb13-21"><a href="#cb13-21"></a>                  (epoch <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, running_loss <span class="op">/</span><span class="st"> </span><span class="dv">2000</span>))</span>
+<span id="cb13-22"><a href="#cb13-22"></a>            running_loss =<span class="st"> </span><span class="fl">0.0</span></span>
+<span id="cb13-23"><a href="#cb13-23"></a></span>
+<span id="cb13-24"><a href="#cb13-24"></a><span class="kw">print</span>(<span class="st">&#39;Finished Training&#39;</span>)</span></code></pre></div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+},
+"search": false
+});
+});
+</script>
+
+</body>
+
+</html>
